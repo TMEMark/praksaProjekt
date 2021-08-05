@@ -16,7 +16,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL salaryChange(1, 10);
+CALL salaryChange(6, -30);
 
 select * from employee;
 

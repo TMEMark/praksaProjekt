@@ -21,4 +21,14 @@
      lastModifyDate datetime
 );
 
-select * from department
+update employee
+SET salary = 50000
+where employeeNo = 1;
+
+select * from department;
+
+select * from employee;
+
+
+
+
