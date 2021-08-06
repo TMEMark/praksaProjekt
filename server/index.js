@@ -17,7 +17,13 @@ const db = sql.createPool({
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3000/register",
+      "http://localhost:3000/departments",
+      "http://localhost:3000/employees",
+      "http://localhost:3000/questions",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -44,24 +50,23 @@ app.post("/register", (req, res) => {
 
   bcrypt.hash(loginPassword, saltRounds, (err, hash) => {
     if (err) {
-      console.log(err);
+      res.status(500).send({ message: "Something went wrong" });
+      return;
     }
     db.query(
       "INSERT INTO login (loginUserName, loginPassword ) VALUES(?,?)",
-      [loginUserName, loginPassword],
+      [loginUserName, hash],
       (err, result) => {
-        console.log(err);
+        if (err || !result) {
+          res.status(500).send({ message: "Something went wrong" });
+          return;
+        }
+        req.session.user = result;
+        console.log(req.session.user);
+        res.status(200).send(result);
       }
     );
   });
-});
-
-app.get("/login", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    res.send({ loggedIn: false });
-  }
 });
 
 app.get("/logout", (req, res) => {
@@ -76,29 +81,26 @@ app.post("/login", (req, res) => {
   const loginPassword = req.body.loginPassword;
 
   db.query(
-    "SELECT * FROM login WHERE username = ?;",
+    "SELECT * FROM login WHERE loginUsername = ?;",
     loginUserName,
     (err, result) => {
-      if (err) {
-        console.log(err);
+      if (err || !result.length) {
+        res.status(500).send({ message: "Something went wrong" });
+        return;
       }
-      if (result.length > 0) {
-        bcrypt.compare(
-          loginPassword,
-          result[0].loginPassword,
-          (error, response) => {
-            if (response) {
-              req.session.user = result;
-              console.log(req.session.user);
-              res.send(result);
-            } else {
-              res.send({ message: "Wrong username/password combination!" });
-            }
+
+      bcrypt.compare(
+        loginPassword,
+        result[0].loginPassword,
+        (error, response) => {
+          if (error || !response) {
+            res.status(400).send({ message: "Wrong data" });
+            return;
           }
-        );
-      } else {
-        res.send({ message: "User does not exist!" });
-      }
+
+          res.status(200).send(result);
+        }
+      );
     }
   );
 });
