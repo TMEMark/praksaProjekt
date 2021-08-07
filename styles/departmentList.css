@@ -1,0 +1,165 @@
+.formTable {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: 2fr 2fr;
+  grid-gap: 25px;
+  background-color: aliceblue;
+  padding-top: 20px;
+}
+
+.formTable > .form {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  grid-template-rows: 2fr 2fr;
+}
+
+.header {
+  padding-top: 20px;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.formUpis {
+  padding-top: 70px;
+  grid-row: 1;
+  grid-column: 2 / 3;
+  width: 100%;
+}
+
+#deploc {
+  padding-top: 40px;
+}
+
+label {
+  position: relative;
+  font-size: 16px;
+  padding-top: 20px;
+  margin-bottom: 5px;
+}
+input {
+  border: none;
+  -webkit-appearance: none;
+  -ms-progress-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 15px;
+  width: 100%;
+  border-radius: 0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  outline: none;
+  background: linear-gradient(90deg, #fba1a1, #fba1a1) center bottom/0 2px
+      no-repeat,
+    linear-gradient(90deg, #8b8b8b, #8b8b8b) center bottom/100% 2px no-repeat,
+    linear-gradient(90deg, aliceblue, aliceblue) left bottom/100% 2px no-repeat;
+  transition: background-size 5s ease;
+}
+
+#dep {
+  position: absolute;
+  left: 1px;
+  top: calc(50% + 10px);
+  transform: translateY(-50%);
+  color: rgb(7, 7, 7);
+  transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+input:valid,
+input:focus {
+  background-size: 100% 2px, 100% 2px, 100%;
+}
+
+input:valid + #dep,
+input:focus + #dep {
+  top: 10px;
+  font-size: 14px;
+  color: rgb(7, 7, 7);
+}
+
+#add {
+  font-size: 14px;
+  font: bold;
+  text-decoration: none;
+  background-color: rgb(67, 207, 62);
+  color: aliceblue;
+  padding: 8px 30px 8px 30px;
+  outline: none;
+  margin-top: 30px;
+  border: rgb(67, 207, 62);
+  opacity: 0.8;
+  float: right;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#add:hover {
+  opacity: 1;
+}
+
+.tablica {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  width: 90%;
+}
+
+.tablica thead tr {
+  background-color: #8b8b8b;
+  opacity: 0.7;
+  color: aliceblue;
+  text-align: left;
+}
+
+.tablica th,
+.tablica td {
+  padding: 12px 15px;
+}
+
+.tablica tbody tr {
+  border-bottom: 1px solid aliceblue;
+}
+
+.tablica tbody tr:nth-of-type(even) {
+  background-color: aliceblue;
+}
+
+.tablica tbody tr:last-of-type {
+  border-bottom: 2px solid #8b8b8b;
+}
+
+.tablica tbody tr.active-row {
+  font-weight: bold;
+  color: #8b8b8b;
+}
+
+.departments > .departmentTable {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#delete {
+  color: rgb(230, 46, 46);
+  opacity: 0.7;
+  width: 20px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#delete:hover {
+  opacity: 1;
+}
+
+#update {
+  color: rgb(46, 110, 230);
+  opacity: 0.7;
+  width: 20px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#update:hover {
+  opacity: 1;
+}
